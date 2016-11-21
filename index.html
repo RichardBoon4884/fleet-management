@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Fleet management</title>
+</head>
+<body>
+<script type="text/javascript">
+		function Metro(id, type, passengers, panto, activeService) {
+			this.id = id;
+			this.type = type;
+			this.passengers = passengers;
+			this.panto = panto;
+			this.activeService = activeService;
+
+			this.setActiveService = function(serviceBool) {
+				if (serviceBool == true || serviceBool == false) {
+					this.activeService = serviceBool;
+				}
+			}
+		}
+	</script>
+	<script type="text/javascript">
+		var metro5401 = new Metro(5401, 'SG2/1', 150, true, true);
+		window.onload = function() {
+			var optionsBoolTrue = '<option value="true">True</option>';
+			var optionsBoolFalse = '<option value="false">False</option>';
+
+			document.getElementsByName("id")[0].setAttribute("value", metro5401.id);
+			document.getElementsByName("type")[0].setAttribute("value", metro5401.type);
+			document.getElementsByName("passengers")[0].setAttribute("value", metro5401.passengers);
+			document.getElementsByName("panto")[0].setAttribute("value", metro5401.panto);
+		}
+	</script>
+	<form>
+		Metro number: <input type="text" name="id" disabled><br>
+		Type: <input type="text" name="type" disabled><br>
+		Passengers: <input type="text" name="passengers" disabled><br>
+		Panto: <input type="text" name="panto" disabled><br>
+		Active services: <select name="activeService"></select>
+	</form> 
+</body>
+</html>

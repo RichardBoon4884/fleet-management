@@ -5,12 +5,12 @@
 </head>
 <body>
 	<script type="text/javascript">
-		var optionsBoolTrue = '<option value="true">True</option>';
-		var optionsBoolFalse = '<option value="false">False</option>';
+		var optionsBoolTrue = '<option value="true">True</option><option value="false">False</option>';
+		var optionsBoolFalse = '<option value="false">False</option><option value="true">True</option>';
 
 		function createNewForm(id) {
-			if (id == undefined) {let id = 'undefinedNewForm'};
-			document.body.innerHTML += '<form id=' + id +'>Metro number: <input type="text" name="id" disabled><br>Type: <input type="text" name="type" disabled><br>Passengers: <input type="text" name="passengers" disabled><br>Passengers: <input type="text" name="passengers" disabled><br>Panto: <input type="text" name="panto" disabled><br>Active services: <select name="activeService"></select></form>';
+			if (id == undefined) {var id = 'undefinedNewForm'};
+			document.body.innerHTML += '<form id="metro'+ id +'"><button type="button">Edit</button> <b>Metro '+ id +' information</b><br>Metro number: <input type="text" name="metro'+ id +'-id" disabled><br>Type: <input type="text" name="metro'+ id +'-type" disabled><br>Passengers: <input type="text" name="metro'+ id +'-passengers" disabled><br>Panto: <select name="metro'+ id +'-panto" disabled></select><br>Active services: <select name="metro'+ id +'-activeService"></select></form>';
 		};
 		function Metro(id, type, passengers, panto, activeService) {
 			this.id = id;
@@ -28,36 +28,42 @@
 			}
 			this.createForm = function() { // Create form or update a form if exist
 				if (document.getElementById(objectName) == null) {
-					createNewForm(objectName);
+					createNewForm(this.id);
 				}
+
 				let parent = document.getElementById(objectName);
 
-				parent.getElementsByName("id")[0].setAttribute("value", this.id);
-				parent.getElementsByName("type")[0].setAttribute("value", this.type);
-				parent.getElementsByName("passengers")[0].setAttribute("value", this.passengers);
-				parent.getElementsByName("panto")[0].setAttribute("value", this.panto);
+				document.getElementsByName('metro' + id + '-id')[0].setAttribute("value", this.id);
+				document.getElementsByName('metro' + id + '-type')[0].setAttribute("value", this.type);
+				document.getElementsByName('metro' + id + '-passengers')[0].setAttribute("value", this.passengers);
+
+				let selectorPanto = document.getElementsByName('metro' + id + "-panto")[0];
+
+				if (this.panto == true) {
+					selectorPanto.innerHTML = optionsBoolTrue;
+				}else if (this.panto == false) {
+					selectorPanto.innerHTML = optionsBoolFalse;
+				};
+
+				let selectorActiveService = document.getElementsByName('metro' + id + "-activeService")[0];
+
+				if (this.activeService == true) {
+					selectorActiveService.innerHTML = optionsBoolTrue;
+				}else if (this.activeService == false) {
+					selectorActiveService.innerHTML = optionsBoolFalse;
+				};
 			}
 		};
 		// function createMetroObject(id, type, passengers, panto, activeService) {
 		// 	var ('metro' + id) = new Metro(id, type, passengers, panto, activeService);
-		// };		
+		// };
 	</script>
 	<script type="text/javascript">
 		var metro5401 = new Metro(5401, 'SG2/1', 150, true, true);
 		var metro5301 = new Metro(5301, 'MG2/1', 150, false, true);
-		// window.onload = function() {
-		// 	document.getElementsByName("id")[0].setAttribute("value", metro5401.id);
-		// 	document.getElementsByName("type")[0].setAttribute("value", metro5401.type);
-		// 	document.getElementsByName("passengers")[0].setAttribute("value", metro5401.passengers);
-		// 	document.getElementsByName("panto")[0].setAttribute("value", metro5401.panto);
-		// }
+		window.onload = function() {
+			metro5301.createForm();
+		}
 	</script>
-	<form>
-		Metro number: <input type="text" name="id" disabled><br>
-		Type: <input type="text" name="type" disabled><br>
-		Passengers: <input type="text" name="passengers" disabled><br>
-		Panto: <input type="text" name="panto" disabled><br>
-		Active services: <select name="activeService"></select>
-	</form> 
 </body>
 </html>

@@ -10,7 +10,7 @@
 
 		function createNewForm(id) {
 			if (id == undefined) {var id = 'undefinedNewForm'};
-			document.body.innerHTML += '<form id="metro'+ id +'"><button type="button">Edit</button> <b>Metro '+ id +' information</b><br>Metro number: <input type="text" name="metro'+ id +'-id" disabled><br>Type: <input type="text" name="metro'+ id +'-type" disabled><br>Passengers: <input type="text" name="metro'+ id +'-passengers" disabled><br>Panto: <select name="metro'+ id +'-panto" disabled></select><br>Active services: <select name="metro'+ id +'-activeService"></select></form>';
+			document.body.innerHTML += '<form id="metro'+ id +'"><button type="button" onclick="metro'+ id +'.edit()" name="metro'+ id +'-button">Edit</button> <b>Metro '+ id +' information</b><br>Metro number: <input type="text" name="metro'+ id +'-id" disabled><br>Type: <input type="text" name="metro'+ id +'-type" disabled><br>Passengers: <input type="number" name="metro'+ id +'-passengers" disabled><br>Panto: <select name="metro'+ id +'-panto" disabled></select><br>Active services: <select name="metro'+ id +'-activeService" disabled></select></form>';
 		};
 		function Metro(id, type, passengers, panto, activeService) {
 			this.id = id;
@@ -52,6 +52,29 @@
 				}else if (this.activeService == false) {
 					selectorActiveService.innerHTML = optionsBoolFalse;
 				};
+			};
+			this.edit = function() {
+				// document.getElementsByName('metro' + id + '-id')[0].removeAttribute('disabled'); // Temporary disabled
+				document.getElementsByName('metro' + id + '-type')[0].removeAttribute('disabled');
+				document.getElementsByName('metro' + id + '-passengers')[0].removeAttribute('disabled');
+				document.getElementsByName('metro' + id + '-panto')[0].removeAttribute('disabled');
+				document.getElementsByName('metro' + id + '-activeService')[0].removeAttribute('disabled');
+				document.getElementsByName('metro' + id + '-button')[0].setAttribute('onclick', objectName + '.save()');
+				document.getElementsByName('metro' + id + '-button')[0].innerHTML = ('Save');
+			}
+			this.save = function() {
+				this.type = document.getElementsByName('metro' + id + '-type')[0].value;
+				this.passengers = document.getElementsByName('metro' + id + '-passengers')[0].value;
+				this.panto = document.getElementsByName('metro' + id + '-panto')[0].value;
+				this.activeService = document.getElementsByName('metro' + id + '-activeService')[0].value;
+				// this.id = document.getElementsByName('metro' + id + '-id')[0].value;
+				// document.getElementsByName('metro' + id + '-id')[0].setAttribute('disabled', '');
+				document.getElementsByName('metro' + id + '-type')[0].setAttribute('disabled', '');
+				document.getElementsByName('metro' + id + '-passengers')[0].setAttribute('disabled', '');
+				document.getElementsByName('metro' + id + '-panto')[0].setAttribute('disabled', '');
+				document.getElementsByName('metro' + id + '-activeService')[0].setAttribute('disabled', '');
+				document.getElementsByName('metro' + id + '-button')[0].setAttribute('onclick', objectName + '.edit()');
+				document.getElementsByName('metro' + id + '-button')[0].innerHTML = ('Edit');
 			}
 		};
 		// function createMetroObject(id, type, passengers, panto, activeService) {
